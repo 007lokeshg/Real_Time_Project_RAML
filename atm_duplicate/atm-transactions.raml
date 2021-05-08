@@ -1,0 +1,57 @@
+#%RAML 1.0
+title: ATM Transactions
+protocols: [HTTP,HTTPS]
+
+uses:
+  qp: /library/library.raml
+types:
+  createAcc: !include /schemas/create_account_dataType.raml
+  checkBala: !include /schemas/check_balance_dataType.raml
+  withDraw: !include /schemas/with_drawn_dataType.raml
+  unBlock: !include /schemas/unblock-dataType.raml      
+/createAccount:
+  post:
+    is:
+      - qp.create-account
+    body:
+          application/json:
+           type: createAcc
+    responses:
+      201:
+        body:
+          application/json:
+           example: !include example/create-account-customer-details1.raml
+/checkBalance: 
+  post:
+    is:
+      - qp.check-balance
+    body:
+          application/json:
+            type: checkBala
+    responses:
+      201:
+        body:
+          application/json:
+            example: !include example/check_balance_example.raml
+/withDraw:
+  post:
+    is:
+      - qp.with-draw
+    body:
+          application/json:
+            type: withDraw
+    responses:
+      200:
+        body:
+          application/json:
+            example: !include example/amount_with_drawn_example.raml
+/unblock:
+  put:
+    body:
+      application/json:
+        type: unBlock
+    responses:
+      200:
+        body:
+          application/json:
+            example: !include example/unblock-example.raml              
